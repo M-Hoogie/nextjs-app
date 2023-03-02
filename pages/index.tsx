@@ -12,7 +12,8 @@ export async function getServerSideProps() {
 }
 
 export default function Home({ data }: { data: string }) {
-  const serverData = JSON.parse(data);
+  const serverData = JSON.parse(data) as { time: Date };
+  const time = new Date(serverData.time);
   return (
     <>
       <Head>
@@ -50,7 +51,7 @@ export default function Home({ data }: { data: string }) {
           <h1 className={styles.title}>
             Welcome to{" "}
             <a href="https://nextjs.org">
-              Next.js! The time is {serverData.time}
+              Next.js! The time is {time.toTimeString()}
             </a>
           </h1>
         </div>
