@@ -14,6 +14,8 @@ export async function getServerSideProps() {
 export default function Home({ data }: { data: string }) {
   const serverData = JSON.parse(data) as { time: Date };
   const time = new Date(serverData.time);
+  const formatter = Intl.DateTimeFormat("nl", { timeStyle: "short" });
+
   return (
     <>
       <Head>
@@ -51,7 +53,7 @@ export default function Home({ data }: { data: string }) {
           <h1 className={styles.title}>
             Welcome to{" "}
             <a href="https://nextjs.org">
-              Next.js! The time is {time.toTimeString()}
+              Next.js! The time is {formatter.format(time)}
             </a>
           </h1>
         </div>
