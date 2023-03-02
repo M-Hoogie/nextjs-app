@@ -12,9 +12,20 @@ export async function getServerSideProps() {
 }
 
 export default function Home({ data }: { data: string }) {
-  const serverData = JSON.parse(data) as { time: Date };
-  const time = new Date(serverData.time);
-  const formatter = Intl.DateTimeFormat("nl", { timeStyle: "short" });
+  const formatter = Intl.DateTimeFormat("nl", { timeStyle: "medium" });
+
+  const [time, setTime] = useState<Date | null>(null);
+  useEffect(() => {
+    const id = setInterval(
+      () =>
+        fetch("/api/time")
+          .then((res) => res.json())
+          .then((json) => setTime(new Date(json.time))),
+      1000
+    );
+
+    return () => clearInterval(id);
+  }, []);
 
   return (
     <>
@@ -53,7 +64,7 @@ export default function Home({ data }: { data: string }) {
           <h1 className={styles.title}>
             Welcome to{" "}
             <a href="https://nextjs.org">
-              Next.js! The time is {formatter.format(time)}
+              Next.js! The time is {time && formatter.format(time)}
             </a>
           </h1>
         </div>
