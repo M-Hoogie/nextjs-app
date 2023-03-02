@@ -1,11 +1,18 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
-import styles from '@/styles/Home.module.css'
+import Head from "next/head";
+import Image from "next/image";
+import { Inter } from "next/font/google";
+import styles from "@/styles/Home.module.css";
+import { useState, useEffect } from "react";
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ["latin"] });
 
-export default function Home() {
+export async function getServerSideProps() {
+  const data = JSON.stringify({ time: new Date() });
+  return { props: { data } };
+}
+
+export default function Home({ data }: { data: string }) {
+  const serverData = JSON.parse(data);
   return (
     <>
       <Head>
@@ -26,7 +33,7 @@ export default function Home() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              By{' '}
+              By{" "}
               <Image
                 src="/vercel.svg"
                 alt="Vercel Logo"
@@ -40,23 +47,12 @@ export default function Home() {
         </div>
 
         <div className={styles.center}>
-          <Image
-            className={styles.logo}
-            src="/next.svg"
-            alt="Next.js Logo"
-            width={180}
-            height={37}
-            priority
-          />
-          <div className={styles.thirteen}>
-            <Image
-              src="/thirteen.svg"
-              alt="13"
-              width={40}
-              height={31}
-              priority
-            />
-          </div>
+          <h1 className={styles.title}>
+            Welcome to{" "}
+            <a href="https://nextjs.org">
+              Next.js! The time is {serverData.time}
+            </a>
+          </h1>
         </div>
 
         <div className={styles.grid}>
@@ -119,5 +115,5 @@ export default function Home() {
         </div>
       </main>
     </>
-  )
+  );
 }
