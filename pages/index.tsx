@@ -15,6 +15,7 @@ export async function getServerSideProps() {
 export default function Home({ data }: { data: string }) {
   const formatter = Intl.DateTimeFormat("nl", { timeStyle: "medium" });
 
+  const [name, setName] = useState<string | null>(null);
   const [time, setTime] = useState<Date | null>(null);
   useEffect(() => {
     const id = setInterval(
@@ -27,6 +28,12 @@ export default function Home({ data }: { data: string }) {
 
     return () => clearInterval(id);
   }, []);
+
+  useEffect(() => {
+    fetch("api/hello")
+      .then((res) => res.json())
+      .then((json) => setName(json.name));
+  });
 
   return (
     <>
@@ -43,32 +50,15 @@ export default function Home({ data }: { data: string }) {
             <code className={styles.code}>pages/index.tsx</code>
           </p>
           <div>
-            <a
-              href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              By{" "}
-              <Image
-                src="/vercel.svg"
-                alt="Vercel Logo"
-                className={styles.vercelLogo}
-                width={100}
-                height={24}
-                priority
-              />
-            </a>
+            <LoginButton />
           </div>
         </div>
 
         <div className={styles.center}>
           <h1 className={styles.title}>
-            Welcome to{" "}
-            <a href="https://nextjs.org">
-              Next.js! The time is {time && formatter.format(time)}
-            </a>
+            Welcome {name} to <a href="https://nextjs.org">Next.js!</a> <br />
+            The time is {time && formatter.format(time)}
           </h1>
-          <LoginButton />
         </div>
 
         <div className={styles.grid}>

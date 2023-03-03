@@ -23,7 +23,12 @@ export const authOptions: AuthOptions = {
       primaryUserFlow: process.env.AZURE_AD_B2C_PRIMARY_USER_FLOW!,
       authorization: {
         params: {
-          scope: ["openid", "profile", "offline_access"].join(" "),
+          scope: [
+            "openid",
+            "profile",
+            "offline_access",
+            `https://${process.env.AZURE_AD_B2C_TENANT_NAME}.onmicrosoft.com/backend/api.read`,
+          ].join(" "),
           prompt: "login",
         },
       },
