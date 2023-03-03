@@ -33,7 +33,7 @@ export default function Home({ data }: { data: string }) {
     fetch("api/hello")
       .then((res) => res.json())
       .then((json) => setName(json.name));
-  });
+  }, []);
 
   return (
     <>
