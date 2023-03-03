@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import styles from "@/styles/Home.module.css";
 import { useState, useEffect } from "react";
 import LoginButton from "@/components/login-btn";
+import { SiteOwner } from "@/components/site-owner";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -46,8 +47,7 @@ export default function Home({ data }: { data: string }) {
       <main className={styles.main}>
         <div className={styles.description}>
           <p>
-            Get started by editing&nbsp;
-            <code className={styles.code}>pages/index.tsx</code>
+            <SiteOwner />
           </p>
           <div>
             <LoginButton />
