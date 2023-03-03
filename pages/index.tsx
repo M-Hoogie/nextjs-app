@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Inter } from "next/font/google";
 import styles from "@/styles/Home.module.css";
 import { useState, useEffect } from "react";
+import LoginButton from "@/components/login-btn";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -67,6 +68,7 @@ export default function Home({ data }: { data: string }) {
               Next.js! The time is {time && formatter.format(time)}
             </a>
           </h1>
+          <LoginButton />
         </div>
 
         <div className={styles.grid}>
