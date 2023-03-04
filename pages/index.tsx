@@ -1,20 +1,56 @@
 import Head from "next/head";
-import Image from "next/image";
 import { Inter } from "next/font/google";
 import styles from "@/styles/Home.module.css";
 import { useState, useEffect } from "react";
 import LoginButton from "@/components/login-btn";
 import { SiteOwner } from "@/components/site-owner";
+import { getServerSession } from "next-auth";
+import { GetServerSideProps } from "next";
+import { authOptions } from "./api/auth/[...nextauth]";
+import { URL } from "url";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export async function getServerSideProps() {
-  const data = JSON.stringify({ time: new Date() });
-  return { props: { data } };
-}
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const session = await getServerSession(ctx.req, ctx.res, authOptions);
 
-export default function Home({ data }: { data: string }) {
+  const authURL = new URL(process.env.NEXTAUTH_URL ?? "");
+
+  if (session && ctx.req.headers.host === authURL.host) {
+    console.log(session, `${authURL.protocol}stijlbreuk.${authURL.host}`);
+    return {
+      redirect: {
+        destination: `${authURL.protocol}//stijlbreuk.${authURL.host}`,
+        permanent: false,
+      },
+    };
+  }
+
+  if (!session && ctx.req.headers.host !== authURL.host) {
+    return {
+      redirect: {
+        destination: `${authURL.origin}`,
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
+};
+
+export default function Home() {
   const formatter = Intl.DateTimeFormat("nl", { timeStyle: "medium" });
+
+  useEffect(() => {
+    const tenantPieces = window.location.host.split(".");
+    if (tenantPieces) {
+      setTenant(tenantPieces[0]);
+    }
+  }, []);
+
+  const [tenant, setTenant] = useState<string>("");
 
   const [name, setName] = useState<string | null>(null);
   const [time, setTime] = useState<Date | null>(null);
@@ -58,6 +94,8 @@ export default function Home({ data }: { data: string }) {
           <h1 className={styles.title}>
             Welcome {name} to <a href="https://nextjs.org">Next.js!</a> <br />
             The time is {time && formatter.format(time)}
+            <br />
+            The tenant is: {tenant}
           </h1>
         </div>
 

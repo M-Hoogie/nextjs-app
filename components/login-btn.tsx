@@ -14,7 +14,7 @@ export default function LoginButton() {
   return (
     <>
       Not signed in <br />
-      <button onClick={() => signIn()}>Sign in</button>
+      <button onClick={() => signIn("azure-ad-b2c")}>Sign in</button>
     </>
   );
 }

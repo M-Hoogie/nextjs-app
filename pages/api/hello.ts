@@ -34,7 +34,6 @@ export default async function handler(
     ).then((res) => res.json());
 
     const me = userData.data.me;
-    console.log(me);
 
     res.status(200).json({ name: `${me.givenName} ${me.familyName}` });
   } else {
