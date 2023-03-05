@@ -26,6 +26,13 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     };
   }
 
+  console.log(
+    `Host checker: ${JSON.stringify({
+      hostRequest: ctx.req.headers.host,
+      authURLHost: authURL.host,
+    })}`
+  );
+
   if (!session && ctx.req.headers.host !== authURL.host) {
     return {
       redirect: {
