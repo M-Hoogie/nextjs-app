@@ -16,6 +16,7 @@ jobs:
     name: Build and Deploy Job
     env:
       NEXT_PUBLIC_BLUEKNOWS_BACKEND: https://stijlbreuk-blueknows-api.azurewebsites.net
+      NEXTAUTH_URL: ${{ vars.NEXTAUTH_URL }}
     steps:
       - name: step 1
         run: |
