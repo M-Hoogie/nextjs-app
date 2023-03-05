@@ -17,7 +17,12 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const authURL = new URL(process.env.NEXTAUTH_URL ?? "");
 
   if (session && ctx.req.headers.host === authURL.host) {
-    console.log(session, `${authURL.protocol}stijlbreuk.${authURL.host}`);
+    process.stdout.write(
+      JSON.stringify({
+        session,
+        redirectURL: `${authURL.protocol}stijlbreuk.${authURL.host}`,
+      })
+    );
     return {
       redirect: {
         destination: `${authURL.protocol}//stijlbreuk.${authURL.host}`,
@@ -26,7 +31,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     };
   }
 
-  console.log(
+  process.stdout.write(
     `Host checker: ${JSON.stringify({
       hostRequest: ctx.req.headers.host,
       authURLHost: authURL.host,
