@@ -33,6 +33,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   process.stdout.write(
     `Host checker: ${JSON.stringify({
+      headers: ctx.req.headers,
       hostRequest: ctx.req.headers.host,
       authURLHost: authURL.host,
     })}`
