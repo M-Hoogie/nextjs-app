@@ -17,17 +17,6 @@ process.stdout.write(
 
 export const authOptions: AuthOptions = {
   debug: true,
-  logger: {
-    debug(code, metadata) {
-      console.info(code, metadata);
-    },
-    warn(code) {
-      console.warn(code);
-    },
-    error(code, metadata) {
-      console.error(code, metadata);
-    },
-  },
   callbacks: {
     async jwt({ token, account }) {
       // Persist the OAuth access_token to the token right after signin
