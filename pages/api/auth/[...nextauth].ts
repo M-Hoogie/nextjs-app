@@ -6,6 +6,15 @@ const useSecureCookies = AUTH_URL.startsWith("https://");
 const cookiePrefix = useSecureCookies ? "__Secure-" : "";
 const hostName = new URL(AUTH_URL).hostname;
 
+process.stdout.write(
+  `Config options: ${JSON.stringify({
+    AUTH_URL,
+    useSecureCookies,
+    cookiePrefix,
+    hostName,
+  })}`
+);
+
 export const authOptions: AuthOptions = {
   debug: true,
   logger: {
@@ -60,6 +69,17 @@ export const authOptions: AuthOptions = {
     }),
     // ...add more providers here
   ],
-  cookies: {},
+  cookies: {
+    sessionToken: {
+      name: "__Secure-next-auth.session-token",
+      options: {
+        httpOnly: true,
+        sameSite: "lax",
+        path: "/",
+        domain: ".azure-test.dev.stijlbre.uk",
+        secure: true,
+      },
+    },
+  },
 };
 export default NextAuth(authOptions);
