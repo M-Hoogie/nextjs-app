@@ -13,10 +13,11 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const session = await getServerSession(ctx.req, ctx.res, authOptions);
-
   const authURL = new URL(process.env.NEXTAUTH_URL ?? "");
+  const requestedHost =
+    ctx.req.headers["x-forwarded-host"] || ctx.req.headers.host;
 
-  if (session && ctx.req.headers.host === authURL.host) {
+  if (session && requestedHost === authURL.host) {
     process.stdout.write(
       `Logged in: ${JSON.stringify({
         session,
@@ -39,9 +40,6 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       authURLHost: authURL.host,
     })}`
   );
-
-  const requestedHost =
-    ctx.req.headers["x-forwarded-host"] || ctx.req.headers.host;
 
   if (!session && requestedHost !== authURL.host) {
     return {
