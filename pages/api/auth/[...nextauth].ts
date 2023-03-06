@@ -60,17 +60,6 @@ export const authOptions: AuthOptions = {
     }),
     // ...add more providers here
   ],
-  cookies: {
-    sessionToken: {
-      name: `${cookiePrefix}next-auth.session-token`,
-      options: {
-        httpOnly: true,
-        sameSite: "lax",
-        path: "/",
-        domain: "." + hostName,
-        secure: useSecureCookies,
-      },
-    },
-  },
+  cookies: {},
 };
 export default NextAuth(authOptions);
