@@ -69,17 +69,5 @@ export const authOptions: AuthOptions = {
     }),
     // ...add more providers here
   ],
-  cookies: {
-    sessionToken: {
-      name: "__Secure-next-auth.session-token",
-      options: {
-        httpOnly: true,
-        sameSite: "lax",
-        path: "/",
-        domain: ".azure-test.dev.stijlbre.uk",
-        secure: true,
-      },
-    },
-  },
 };
 export default NextAuth(authOptions);
