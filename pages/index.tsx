@@ -18,10 +18,11 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   if (session && ctx.req.headers.host === authURL.host) {
     process.stdout.write(
-      JSON.stringify({
+      `Logged in: ${JSON.stringify({
         session,
+        headers: ctx.req.headers,
         redirectURL: `${authURL.protocol}stijlbreuk.${authURL.host}`,
-      })
+      })}`
     );
     return {
       redirect: {
@@ -39,7 +40,10 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     })}`
   );
 
-  if (!session && ctx.req.headers.host !== authURL.host) {
+  const requestedHost =
+    ctx.req.headers["x-forwarded-host"] || ctx.req.headers.host;
+
+  if (!session && requestedHost !== authURL.host) {
     return {
       redirect: {
         destination: `${authURL.origin}`,
