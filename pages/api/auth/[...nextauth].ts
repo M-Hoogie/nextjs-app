@@ -60,13 +60,12 @@ export const authOptions: AuthOptions = {
   ],
   cookies: {
     sessionToken: {
-      name: "__Secure-next-auth.session-token",
+      name: `${cookiePrefix}next-auth.session-token`,
       options: {
         httpOnly: true,
         sameSite: "lax",
         path: "/",
-        domain: ".azure-test.dev.stijlbre.uk",
-        secure: true,
+        secure: useSecureCookies,
       },
     },
   },
