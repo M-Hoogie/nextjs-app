@@ -58,6 +58,7 @@ export const authOptions: AuthOptions = {
     }),
     // ...add more providers here
   ],
+
   cookies: {
     sessionToken: {
       name: `${cookiePrefix}next-auth.session-token`,
@@ -90,13 +91,13 @@ export const authOptions: AuthOptions = {
       },
     },
     csrfToken: {
-      name: `${cookiePrefix}next-auth.csrf-token`,
+      name: `__Host-next-auth.csrf-token`,
       options: {
         httpOnly: true,
         sameSite: "lax",
         path: "/",
         secure: useSecureCookies,
-        domain: `.${hostName}`,
+        domain: ``,
         // __Host should leave domain empty
       },
     },
