@@ -70,6 +70,17 @@ export const authOptions: AuthOptions = {
     // ...add more providers here
   ],
 
-  cookies: {},
+  cookies: {
+    callbackUrl: {
+      name: `${cookiePrefix}next-auth.callback-url`,
+      options: {
+        httpOnly: true,
+        sameSite: "lax",
+        path: "/",
+        secure: useSecureCookies,
+        domain: `.${hostName}`,
+      },
+    },
+  },
 };
 export default NextAuth(authOptions);
