@@ -1,19 +1,19 @@
 import NextAuth, { AuthOptions } from "next-auth";
 import AzureADB2CProvider from "next-auth/providers/azure-ad-b2c";
 
-const AUTH_URL = process.env.NEXTAUTH_URL ?? "";
-const useSecureCookies = AUTH_URL.startsWith("https://");
-const cookiePrefix = useSecureCookies ? "__Secure-" : "";
-const hostName = new URL(AUTH_URL).hostname;
+// const AUTH_URL = process.env.NEXTAUTH_URL ?? "";
+// const useSecureCookies = AUTH_URL.startsWith("https://");
+// const cookiePrefix = useSecureCookies ? "__Secure-" : "";
+// const hostName = new URL(AUTH_URL).hostname;
 
-process.stdout.write(
-  `Config options: ${JSON.stringify({
-    AUTH_URL,
-    useSecureCookies,
-    cookiePrefix,
-    hostName,
-  })}`
-);
+// process.stdout.write(
+//   `Config options: ${JSON.stringify({
+//     AUTH_URL,
+//     useSecureCookies,
+//     cookiePrefix,
+//     hostName,
+//   })}`
+// );
 
 export const authOptions: AuthOptions = {
   debug: true,
@@ -58,17 +58,5 @@ export const authOptions: AuthOptions = {
     }),
     // ...add more providers here
   ],
-  cookies: {
-    sessionToken: {
-      name: `${cookiePrefix}next-auth.session-token`,
-      options: {
-        httpOnly: true,
-        sameSite: "lax",
-        path: "/",
-        secure: useSecureCookies,
-        domain: `.${hostName}`,
-      },
-    },
-  },
 };
 export default NextAuth(authOptions);
