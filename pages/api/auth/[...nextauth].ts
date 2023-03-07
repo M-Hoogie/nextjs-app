@@ -17,6 +17,17 @@ process.stdout.write(
 
 export const authOptions: AuthOptions = {
   debug: true,
+  logger: {
+    debug(code, metadata) {
+      process.stdout.write(JSON.stringify({ level: "debug", code, metadata }));
+    },
+    error(code, metadata) {
+      process.stdout.write(JSON.stringify({ level: "error", code, metadata }));
+    },
+    warn(code) {
+      process.stdout.write(JSON.stringify({ level: "warn", code }));
+    },
+  },
   callbacks: {
     async jwt({ token, account }) {
       // Persist the OAuth access_token to the token right after signin
@@ -59,27 +70,6 @@ export const authOptions: AuthOptions = {
     // ...add more providers here
   ],
 
-  cookies: {
-    sessionToken: {
-      name: `${cookiePrefix}next-auth.session-token`,
-      options: {
-        httpOnly: true,
-        sameSite: "lax",
-        path: "/",
-        secure: useSecureCookies,
-        domain: `.${hostName}`,
-      },
-    },
-    state: {
-      name: `${cookiePrefix}next-auth.state`,
-      options: {
-        httpOnly: true,
-        sameSite: "lax",
-        path: "/",
-        secure: useSecureCookies,
-        domain: `.${hostName}`,
-      },
-    },
-  },
+  cookies: {},
 };
 export default NextAuth(authOptions);
