@@ -90,17 +90,6 @@ export const authOptions: AuthOptions = {
         domain: `.${hostName}`,
       },
     },
-    csrfToken: {
-      name: `__Host-next-auth.csrf-token`,
-      options: {
-        httpOnly: true,
-        sameSite: "lax",
-        path: "/",
-        secure: useSecureCookies,
-        domain: ``,
-        // __Host should leave domain empty
-      },
-    },
   },
 };
 export default NextAuth(authOptions);
