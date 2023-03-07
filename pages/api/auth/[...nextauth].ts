@@ -90,12 +90,13 @@ export const authOptions: AuthOptions = {
       },
     },
     csrfToken: {
-      name: `__Host-next-auth.csrf-token`,
+      name: `${cookiePrefix}next-auth.csrf-token`,
       options: {
         httpOnly: true,
         sameSite: "lax",
         path: "/",
         secure: useSecureCookies,
+        domain: `.${hostName}`,
         // __Host should leave domain empty
       },
     },
