@@ -78,7 +78,7 @@ export const authOptions: AuthOptions = {
         sameSite: "lax",
         path: "/",
         secure: useSecureCookies,
-f      },
+      },
     },
   },
 };
