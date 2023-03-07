@@ -13,7 +13,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const session = await getServerSession(ctx.req, ctx.res, authOptions);
-  const authURL = new URL(process.env.NEXTAUTH_URL ?? "");
+  const authURL = new URL(process.env.NEXT_PUBLIC_HOST ?? "");
   const requestedHost =
     ctx.req.headers["x-forwarded-host"] || ctx.req.headers.host;
 
