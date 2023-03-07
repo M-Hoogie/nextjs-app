@@ -58,5 +58,27 @@ export const authOptions: AuthOptions = {
     }),
     // ...add more providers here
   ],
+  cookies: {
+    sessionToken: {
+      name: `${cookiePrefix}next-auth.session-token`,
+      options: {
+        httpOnly: true,
+        sameSite: "lax",
+        path: "/",
+        secure: useSecureCookies,
+        domain: `.${hostName}`,
+      },
+    },
+    callbackUrl: {
+      name: `${cookiePrefix}next-auth.callback-url`,
+      options: {
+        httpOnly: true,
+        sameSite: "lax",
+        path: "/",
+        secure: useSecureCookies,
+        domain: `.${hostName}`,
+      },
+    },
+  },
 };
 export default NextAuth(authOptions);
