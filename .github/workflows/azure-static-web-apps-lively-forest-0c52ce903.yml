@@ -17,6 +17,7 @@ jobs:
     env:
       NEXT_PUBLIC_BLUEKNOWS_BACKEND: ${{ vars.NEXT_PUBLIC_BLUEKNOWS_BACKEND }}
       NEXTAUTH_URL: ${{ vars.NEXTAUTH_URL }}
+      NEXT_PUBLIC_HOST: ${{ vars.NEXT_PUBLIC_HOST }}
     steps:
       - uses: actions/checkout@v2
         with:
