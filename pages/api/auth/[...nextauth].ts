@@ -71,13 +71,14 @@ export const authOptions: AuthOptions = {
   ],
 
   cookies: {
-    callbackUrl: {
-      name: `${cookiePrefix}next-auth.callback-url`,
+    sessionToken: {
+      name: `${cookiePrefix}next-auth.session-token`,
       options: {
         httpOnly: true,
         sameSite: "lax",
         path: "/",
         secure: useSecureCookies,
+        hostName: `.${hostName}`,
       },
     },
   },
