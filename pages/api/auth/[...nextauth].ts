@@ -70,16 +70,6 @@ export const authOptions: AuthOptions = {
         domain: `.${hostName}`,
       },
     },
-    callbackUrl: {
-      name: `${cookiePrefix}next-auth.callback-url`,
-      options: {
-        httpOnly: true,
-        sameSite: "lax",
-        path: "/",
-        secure: useSecureCookies,
-        domain: `.${hostName}`,
-      },
-    },
     state: {
       name: `${cookiePrefix}next-auth.state`,
       options: {
